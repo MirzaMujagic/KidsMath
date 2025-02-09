@@ -3,6 +3,8 @@ import SwiftUI
 struct GameView: View {
     let level: Int
     @State private var questions: [(Int, Int, String, String, Bool)] = []
+    @State private var startTime = Date()
+    @State private var showResults = false
     @Environment(\.presentationMode) var presentationMode
     @FocusState private var focusedQuestion: Int?
 
@@ -41,19 +43,24 @@ struct GameView: View {
                 }
             }
 
-            Button("Back") {
-                presentationMode.wrappedValue.dismiss()
+            Button("Finish") {
+                showResults = true
             }
             .padding()
             .background(Color.blue)
             .foregroundColor(.white)
             .cornerRadius(10)
+            .disabled(questions.contains { $0.3.isEmpty })
         }
         .padding()
         .onAppear {
+            startTime = Date()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                focusedQuestion = 0  // ✅ Automatically focuses on first input field
+                focusedQuestion = 0  // Automatically focuses on first input field
             }
+        }
+        .fullScreenCover(isPresented: $showResults) {
+            ResultView(questions: questions, startTime: startTime)
         }
     }
 
@@ -65,3 +72,4 @@ struct GameView: View {
         }
     }
 }
+
