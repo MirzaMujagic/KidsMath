@@ -1,17 +1,20 @@
-//
-//  KidsMathApp.swift
-//  KidsMath
-//
-//  Created by Mirza Mujagic on 2025-02-09.
-//
-
 import SwiftUI
+import Firebase
 
 @main
 struct KidsMathApp: App {
+    @StateObject private var gameCenterManager = GameCenterManager()
+    //@StateObject private var navigationManager = NavigationManager()
+
+    init() {
+        FirebaseApp.configure()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gameCenterManager)
+                //.environmentObject(navigationManager)
         }
     }
 }

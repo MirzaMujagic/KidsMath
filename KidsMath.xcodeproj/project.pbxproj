@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C54A34C22D595ADA00E88DC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C54A34C12D595ADA00E88DC5 /* FirebaseAuth */; };
+		C54A34C42D595ADA00E88DC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C54A34C32D595ADA00E88DC5 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C5CD20DC2D5829A50060378E /* KidsMath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KidsMath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C54A34C22D595ADA00E88DC5 /* FirebaseAuth in Frameworks */,
+				C54A34C42D595ADA00E88DC5 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = KidsMath;
 			packageProductDependencies = (
+				C54A34C12D595ADA00E88DC5 /* FirebaseAuth */,
+				C54A34C32D595ADA00E88DC5 /* FirebaseFirestore */,
 			);
 			productName = KidsMath;
 			productReference = C5CD20DC2D5829A50060378E /* KidsMath.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = C5CD20D32D5829A50060378E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C54A34C02D595ADA00E88DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C5CD20DD2D5829A50060378E /* Products */;
 			projectDirPath = "";
@@ -324,6 +336,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C54A34C02D595ADA00E88DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 11.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C54A34C12D595ADA00E88DC5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C54A34C02D595ADA00E88DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		C54A34C32D595ADA00E88DC5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C54A34C02D595ADA00E88DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C5CD20D42D5829A50060378E /* Project object */;
 }
