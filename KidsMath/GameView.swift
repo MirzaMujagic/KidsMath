@@ -1,3 +1,11 @@
+//
+//  GameView.swift
+//  KidsMath
+//
+//  Created by Mirza Mujagic on 2025-02-09.
+//
+
+
 import SwiftUI
 
 struct GameView: View {

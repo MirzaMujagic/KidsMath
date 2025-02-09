@@ -1,46 +1,33 @@
 import Foundation
 
-class GameManager: ObservableObject {
-    @Published var number1 = 0
-    @Published var number2 = 0
-    @Published var operation = ""
-    @Published var score = 0
-    @Published var questionCount = 0
-    @Published var showReward = false
-
-    let levels = Levels()
-
-    func generateNewQuestion(for level: Int) {
-        let operations = levels.getOperations(for: level)
-        operation = operations.randomElement() ?? "+"
-
-        let range = levels.getNumberRange(for: level)
-        number1 = Int.random(in: range)
-        number2 = Int.random(in: range)
-
-        if operation == "-" && number1 < number2 {
-            swap(&number1, &number2) // Ensure no negative results
+struct GameManager {
+    static func generateQuestions(for level: Int) -> [(Int, Int, String, String, Bool)] {
+        var generatedQuestions: [(Int, Int, String, String, Bool)] = []
+        let operations = ["+", "-"]
+        let range = level == 1 ? 1...30 : 30...100
+        
+        for _ in 1...10 {
+            let num1 = Int.random(in: range)
+            let num2 = Int.random(in: range)
+            let operation = operations.randomElement()!
+            
+            var adjustedNum1 = num1
+            var adjustedNum2 = num2
+            
+            if operation == "-" && num1 < num2 {
+                swap(&adjustedNum1, &adjustedNum2)
+            }
+            
+            generatedQuestions.append((adjustedNum1, adjustedNum2, operation, "", false))
         }
+        return generatedQuestions
     }
-
-    func correctAnswer() -> Int {
-        switch operation {
-        case "+": return number1 + number2
-        case "-": return number1 - number2
+    
+    static func correctAnswer(for question: (Int, Int, String, String, Bool)) -> Int {
+        switch question.2 {
+        case "+": return question.0 + question.1
+        case "-": return question.0 - question.1
         default: return 0
-        }
-    }
-
-    func checkAnswer(_ answer: Int) {
-        if answer == correctAnswer() {
-            score += 1
-        }
-        questionCount += 1
-
-        if questionCount == 10 {
-            showReward = true
-            questionCount = 0
-            score = 0
         }
     }
 }

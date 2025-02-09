@@ -1,58 +1,42 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var gameManager = GameManager()
-    @State private var selectedLevel = 1
-    @State private var answer = ""
-
+    @State private var selectedLevel: Int? = nil
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Math for Kids")
-                .font(.largeTitle)
-                .bold()
-                .padding()
-
-            Picker("Select Level", selection: $selectedLevel) {
-                Text("Level 1").tag(1)
-                Text("Level 2").tag(2)
-            }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-            .onChange(of: selectedLevel) {
-                gameManager.generateNewQuestion(for: selectedLevel)
-            }
-
-            Text("\(gameManager.number1) \(gameManager.operation) \(gameManager.number2) = ?")
-                .font(.title)
-                .padding()
-
-            TextField("Your answer", text: $answer)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.numberPad)
-                .padding()
-
-            Button("Submit") {
-                if let userAnswer = Int(answer) {
-                    gameManager.checkAnswer(userAnswer)
+        NavigationView {
+            VStack(spacing: 20) {
+                Text("Math for Kids")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+                
+                NavigationLink(destination: GameView(level: 1), tag: 1, selection: $selectedLevel) {
+                    Button("Level 1") {
+                        selectedLevel = 1
+                    }
+                    .buttonStyle(LevelButtonStyle())
                 }
-                answer = ""
-                gameManager.generateNewQuestion(for: selectedLevel)
-            }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-
-            Text("Score: \(gameManager.score)")
-                .font(.headline)
-                .padding()
-
-            if gameManager.showReward {
-                RewardView()
+                
+                NavigationLink(destination: GameView(level: 2), tag: 2, selection: $selectedLevel) {
+                    Button("Level 2") {
+                        selectedLevel = 2
+                    }
+                    .buttonStyle(LevelButtonStyle())
+                }
             }
         }
-        .padding()
-        .onAppear { gameManager.generateNewQuestion(for: selectedLevel) }
+    }
+}
+
+struct LevelButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }
 
